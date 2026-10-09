@@ -1,6 +1,6 @@
 {
     "name": "jeromegxj/castor-sylius-import-fetch",
-    "description": "Private Castor plugin: fetch existing shop data from sitemap into YAML and push import var over SSH",
+    "description": "Castor plugin: fetch existing shop data from sitemap into YAML and push import var over SSH",
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=8.3",
-        "sylius-starter/sylius-starter": "@dev"
+        "sylius-starter/sylius-starter": "dev-sk-alignment"
     },
     "require-dev": {
         "phpunit/phpunit": "^13.2"
