@@ -26,7 +26,6 @@ use function Castor\Sylius\Import\product_dedup_key_from_url;
 use function Castor\Sylius\Import\title_from_url_slug;
 use function Castor\context;
 use function Castor\fs;
-use function Castor\http_client;
 use function Castor\io;
 use function Castor\run;
 

@@ -20,7 +20,6 @@ use function Castor\Sylius\Import\parse_import_site_input;
 use function Castor\Sylius\Import\persist_project_config;
 use function Castor\Sylius\Import\taxon_code_from_name;
 use function Castor\fs;
-use function Castor\http_client;
 use function Castor\io;
 
 function fetch_import_data(?string $url, ?string $projectName = null, ?string $description = null, ?string $projectSlug = null): void
@@ -74,10 +73,7 @@ function fetch_import_data(?string $url, ?string $projectName = null, ?string $d
     ensure_castor_var_dir();
     import_log(\sprintf('Import var directory ready: %s', castor_var_dir()));
 
-    $client = http_client()->withOptions([
-        'timeout' => 120,
-        'headers' => ['User-Agent' => 'sylius-starter-import/1.0'],
-    ]);
+    $client = import_fetch_http_client();
 
     io()->title(\sprintf('Fetching import data from %s', $baseUrl));
     import_log(\sprintf('Project slug: %s (source host: %s)', $projectSlug, $siteHost));
