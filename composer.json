@@ -1,0 +1,35 @@
+{
+    "name": "jeromegxj/castor-sylius-import-fetch",
+    "description": "Private Castor plugin: fetch existing shop data from sitemap into YAML",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Castor\\Sylius\\ImportFetch\\": "src/"
+        },
+        "files": [
+            "src/bootstrap.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "J\u00e9r\u00f4me Gangneux",
+            "email": "jerome@gangneux.net"
+        }
+    ],
+    "require": {
+        "php": ">=8.3",
+        "jeromegxj/castor-sylius": "@dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^13.2"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/jeromegxj/castor-sylius"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
