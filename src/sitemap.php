@@ -8,9 +8,11 @@ use Castor\Sylius\Import\Dto\CollectionExtraction;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
 
+use const Castor\Sylius\Import\HTML_MAX_LENGTH;
 use const Castor\Sylius\Import\IMPORT_LOCALE_PREFERENCE;
 use const Castor\Sylius\Import\IMPORT_PLATFORM_SHOPIFY_THRESHOLD;
 
+use function Castor\Sylius\Import\clean_html_for_ai;
 use function Castor\Sylius\Import\create_ai_platform;
 use function Castor\Sylius\Import\deserialize_collection_extraction;
 use function Castor\Sylius\Import\humanize_slug;
