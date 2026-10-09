@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Castor\Sylius\ImportFetch;
+namespace SyliusStarter\ImportFetch;
 
-use Castor\Sylius\Import\Dto\CollectionExtraction;
+use SyliusStarter\Import\Dto\CollectionExtraction;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
 
-use const Castor\Sylius\Import\HTML_MAX_LENGTH;
-use const Castor\Sylius\Import\IMPORT_LOCALE_PREFERENCE;
-use const Castor\Sylius\Import\IMPORT_PLATFORM_SHOPIFY_THRESHOLD;
+use const SyliusStarter\Import\HTML_MAX_LENGTH;
+use const SyliusStarter\Import\IMPORT_LOCALE_PREFERENCE;
+use const SyliusStarter\Import\IMPORT_PLATFORM_SHOPIFY_THRESHOLD;
 
-use function Castor\Sylius\Import\clean_html_for_ai;
-use function Castor\Sylius\Import\create_ai_platform;
-use function Castor\Sylius\Import\deserialize_collection_extraction;
-use function Castor\Sylius\Import\humanize_slug;
-use function Castor\Sylius\Import\import_log;
-use function Castor\Sylius\Import\import_url_locale_prefix_pattern;
-use function Castor\Sylius\Import\invoke_ai_structured;
-use function Castor\Sylius\Import\is_category_url;
-use function Castor\Sylius\Import\is_product_url;
-use function Castor\Sylius\Import\normalize_label_for_matching;
-use function Castor\Sylius\Import\product_dedup_key_from_url;
-use function Castor\Sylius\Import\title_from_url_slug;
+use function SyliusStarter\Import\clean_html_for_ai;
+use function SyliusStarter\Import\create_ai_platform;
+use function SyliusStarter\Import\deserialize_collection_extraction;
+use function SyliusStarter\Import\humanize_slug;
+use function SyliusStarter\Import\import_log;
+use function SyliusStarter\Import\import_url_locale_prefix_pattern;
+use function SyliusStarter\Import\invoke_ai_structured;
+use function SyliusStarter\Import\is_category_url;
+use function SyliusStarter\Import\is_product_url;
+use function SyliusStarter\Import\normalize_label_for_matching;
+use function SyliusStarter\Import\product_dedup_key_from_url;
+use function SyliusStarter\Import\title_from_url_slug;
 use function Castor\context;
 use function Castor\fs;
 use function Castor\io;

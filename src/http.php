@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Castor\Sylius\ImportFetch;
+namespace SyliusStarter\ImportFetch;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 

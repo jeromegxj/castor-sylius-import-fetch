@@ -6,7 +6,7 @@ namespace Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function Castor\Sylius\ImportFetch\prepare_html_for_ai_collections;
+use function SyliusStarter\ImportFetch\prepare_html_for_ai_collections;
 
 final class PrepareHtmlForAiCollectionsTest extends TestCase
 {

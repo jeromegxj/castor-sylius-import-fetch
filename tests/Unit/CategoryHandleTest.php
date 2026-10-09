@@ -6,7 +6,7 @@ namespace Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function Castor\Sylius\ImportFetch\category_handle_from_href;
+use function SyliusStarter\ImportFetch\category_handle_from_href;
 
 final class CategoryHandleTest extends TestCase
 {

@@ -6,7 +6,7 @@ namespace Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function Castor\Sylius\ImportFetch\import_fetch_request_headers;
+use function SyliusStarter\ImportFetch\import_fetch_request_headers;
 
 final class ImportFetchHttpHeadersTest extends TestCase
 {

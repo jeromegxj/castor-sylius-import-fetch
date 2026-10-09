@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Castor\Sylius\ImportFetch;
+namespace SyliusStarter\ImportFetch;
 
 use Symfony\Component\Yaml\Yaml;
 
-use const Castor\Sylius\Import\IMPORT_COLLECTION_AI_THRESHOLD;
+use const SyliusStarter\Import\IMPORT_COLLECTION_AI_THRESHOLD;
 
-use function Castor\Sylius\Import\ai_model;
-use function Castor\Sylius\Import\ai_provider;
-use function Castor\Sylius\Import\castor_var_dir;
-use function Castor\Sylius\Import\castor_var_path;
-use function Castor\Sylius\Import\ensure_castor_var_dir;
-use function Castor\Sylius\Import\ensure_import_ai_ready;
-use function Castor\Sylius\Import\import_log;
-use function Castor\Sylius\Import\normalize_import_name;
-use function Castor\Sylius\Import\parse_import_site_input;
-use function Castor\Sylius\Import\persist_project_config;
-use function Castor\Sylius\Import\taxon_code_from_name;
+use function SyliusStarter\Import\ai_model;
+use function SyliusStarter\Import\ai_provider;
+use function SyliusStarter\Import\castor_var_dir;
+use function SyliusStarter\Import\castor_var_path;
+use function SyliusStarter\Import\ensure_castor_var_dir;
+use function SyliusStarter\Import\ensure_import_ai_ready;
+use function SyliusStarter\Import\import_log;
+use function SyliusStarter\Import\normalize_import_name;
+use function SyliusStarter\Import\parse_import_site_input;
+use function SyliusStarter\Import\persist_project_config;
+use function SyliusStarter\Import\taxon_code_from_name;
 use function Castor\fs;
 use function Castor\io;
 
