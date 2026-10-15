@@ -923,7 +923,13 @@ function category_path_patterns(): array
 
 function category_handle_from_href(string $href): string
 {
-    $path = parse_url($href, \PHP_URL_PATH) ?? $href;
+    $path = parse_url($href, \PHP_URL_PATH);
+    $path = \is_string($path) ? $path : $href;
+
+    // CDN files live under /collections/ too (e.g. Shopify's /s/files/…/collections/thumb.jpg).
+    if (is_image_file_path($path)) {
+        return '';
+    }
 
     foreach (category_path_patterns() as $pattern) {
         if (preg_match($pattern, $path, $matches)) {
@@ -1092,39 +1098,101 @@ function collection_from_catalog_url(string $url): ?array
  */
 function extract_collections_from_sitemap_reader(\XMLReader $reader, bool $isCatalogSitemap, array &$byHandle, array &$stats): void
 {
+    $imageNamespace = 'http://www.google.com/schemas/sitemap-image/1.1';
+    $loc = '';
+    $imageLoc = '';
+    $imageTitle = '';
+
     while ($reader->read()) {
-        if (\XMLReader::ELEMENT !== $reader->nodeType || 'loc' !== $reader->localName) {
+        if (\XMLReader::END_ELEMENT === $reader->nodeType && 'url' === $reader->localName) {
+            remember_sitemap_collection($byHandle, $stats, $isCatalogSitemap, $loc, $imageLoc, $imageTitle);
+            $loc = $imageLoc = $imageTitle = '';
+
             continue;
         }
 
-        $loc = trim($reader->readString());
-
-        if ('' === $loc) {
+        if (\XMLReader::ELEMENT !== $reader->nodeType) {
             continue;
         }
 
-        if ($isCatalogSitemap) {
-            $collection = collection_from_catalog_url($loc);
+        // <image:loc> shares the "loc" local name with the page <loc>: only the namespace tells them apart.
+        $isImage = $imageNamespace === $reader->namespaceURI;
 
-            if (null === $collection || isset($byHandle[$collection['handle']])) {
-                continue;
+        if ('loc' === $reader->localName) {
+            if (!$isImage) {
+                $loc = trim($reader->readString());
+            } elseif ('' === $imageLoc) {
+                $imageLoc = trim($reader->readString());
             }
-
-            $byHandle[$collection['handle']] = ['name' => $collection['name']];
-            ++$stats['sitemap_category_links'];
-
-            continue;
+        } elseif ($isImage && 'title' === $reader->localName && '' === $imageTitle) {
+            $imageTitle = trim($reader->readString());
         }
-
-        $handle = category_handle_from_href($loc);
-
-        if ('' === $handle || isset($byHandle[$handle])) {
-            continue;
-        }
-
-        remember_category_collection($byHandle, $loc, humanize_slug($handle));
-        ++$stats['sitemap_category_links'];
     }
+
+    remember_sitemap_collection($byHandle, $stats, $isCatalogSitemap, $loc, $imageLoc, $imageTitle);
+}
+
+/**
+ * @param array<string, array{name: string, image?: string}> $byHandle
+ */
+function remember_sitemap_collection(
+    array &$byHandle,
+    array &$stats,
+    bool $isCatalogSitemap,
+    string $loc,
+    string $imageLoc,
+    string $imageTitle,
+): void {
+    if ('' === $loc) {
+        return;
+    }
+
+    if ($isCatalogSitemap) {
+        $collection = collection_from_catalog_url($loc);
+
+        if (null === $collection || isset($byHandle[$collection['handle']])) {
+            return;
+        }
+
+        $byHandle[$collection['handle']] = ['name' => $collection['name']];
+        ++$stats['sitemap_category_links'];
+
+        return;
+    }
+
+    $handle = category_handle_from_href($loc);
+
+    if ('' === $handle || isset($byHandle[$handle])) {
+        return;
+    }
+
+    $name = collection_name_from_image_title($imageTitle);
+    remember_category_collection(
+        $byHandle,
+        $loc,
+        '' !== $name ? $name : humanize_slug($handle),
+        '' !== $imageLoc ? $imageLoc : null,
+    );
+    ++$stats['sitemap_category_links'];
+}
+
+/**
+ * Shopify fills <image:title> with the collection title; other platforms may leave a file name there.
+ */
+function collection_name_from_image_title(string $title): string
+{
+    $title = trim(html_entity_decode($title));
+
+    if ('' === $title || is_image_file_path($title)) {
+        return '';
+    }
+
+    return $title;
+}
+
+function is_image_file_path(string $path): bool
+{
+    return 1 === preg_match('/\.(?:jpe?g|png|gif|webp|avif|svg|bmp|tiff?)$/i', $path);
 }
 
 function extract_collections_from_sitemap(
@@ -1259,31 +1327,41 @@ function prepare_html_for_ai_collections(string $html): string
 }
 
 /**
- * @param array<string, array{name: string, image?: string}> $byHandle
- * @param array<string, string>                              $imagesByHandle
+ * The /collections.json title is the one the merchant typed: it wins over names guessed from links or slugs.
+ *
+ * @param array<string, array{name: string, image?: string}>   $byHandle
+ * @param array<string, array{title?: string, image?: string}> $shopifyByHandle
  *
  * @return array<string, array{name: string, image?: string}>
  */
-function enrich_collections_with_shopify_images(array $byHandle, array $imagesByHandle): array
+function enrich_collections_with_shopify_data(array $byHandle, array $shopifyByHandle): array
 {
     foreach ($byHandle as $handle => $entry) {
-        if (isset($entry['image']) || !isset($imagesByHandle[$handle])) {
+        $shopify = $shopifyByHandle[$handle] ?? null;
+
+        if (null === $shopify) {
             continue;
         }
 
-        $byHandle[$handle]['image'] = $imagesByHandle[$handle];
+        if (isset($shopify['title'])) {
+            $byHandle[$handle]['name'] = $shopify['title'];
+        }
+
+        if (!isset($entry['image']) && isset($shopify['image'])) {
+            $byHandle[$handle]['image'] = $shopify['image'];
+        }
     }
 
     return $byHandle;
 }
 
 /**
- * @return array<string, string>
+ * @return array<string, array{title?: string, image?: string}>
  */
-function fetch_shopify_collection_images(\Symfony\Contracts\HttpClient\HttpClientInterface $client, string $baseUrl): array
+function fetch_shopify_collections(\Symfony\Contracts\HttpClient\HttpClientInterface $client, string $baseUrl): array
 {
-    /** @var array<string, string> $imagesByHandle */
-    $imagesByHandle = [];
+    /** @var array<string, array{title?: string, image?: string}> $byHandle */
+    $byHandle = [];
 
     for ($page = 1; $page <= 20; ++$page) {
         try {
@@ -1312,16 +1390,25 @@ function fetch_shopify_collection_images(\Symfony\Contracts\HttpClient\HttpClien
 
             $handle = trim((string) ($collection['handle'] ?? ''));
 
-            if ('' === $handle || isset($imagesByHandle[$handle])) {
+            if ('' === $handle || isset($byHandle[$handle])) {
                 continue;
+            }
+
+            $entry = [];
+            $title = trim(html_entity_decode((string) ($collection['title'] ?? '')));
+
+            if ('' !== $title) {
+                $entry['title'] = $title;
             }
 
             $image = $collection['image'] ?? null;
             $src = \is_array($image) ? ($image['src'] ?? null) : null;
 
             if (\is_string($src) && '' !== trim($src)) {
-                $imagesByHandle[$handle] = trim($src);
+                $entry['image'] = trim($src);
             }
+
+            $byHandle[$handle] = $entry;
         }
 
         if (\count($collections) < 250) {
@@ -1329,7 +1416,7 @@ function fetch_shopify_collection_images(\Symfony\Contracts\HttpClient\HttpClien
         }
     }
 
-    return $imagesByHandle;
+    return $byHandle;
 }
 
 /**
@@ -1480,8 +1567,8 @@ function log_fetch_source_report(array $context, array $stats): void
     import_log(\sprintf('  html category links → %d', $stats['html_category_links'] ?? 0));
     import_log(\sprintf('  sitemap categories → %d', $stats['sitemap_category_links'] ?? 0));
 
-    if (isset($stats['shopify_api_images']) && $stats['shopify_api_images'] > 0) {
-        import_log(\sprintf('  shopify API images → %d', $stats['shopify_api_images']));
+    if (isset($stats['shopify_api_collections']) && $stats['shopify_api_collections'] > 0) {
+        import_log(\sprintf('  shopify API collections → %d', $stats['shopify_api_collections']));
     }
 
     import_log(\sprintf('  merged (dedup) → %d', $stats['collections_merged'] ?? 0));
