@@ -242,12 +242,12 @@ function fetch_import_data(?string $url, ?string $projectName = null, ?string $d
 
     if ('shopify' === $context['platform']) {
         import_log('Shopify detected — enriching collections via /collections.json...');
-        $shopifyImages = fetch_shopify_collection_images($client, $baseUrl);
-        $fetchStats['shopify_api_images'] = \count($shopifyImages);
+        $shopifyCollections = fetch_shopify_collections($client, $baseUrl);
+        $fetchStats['shopify_api_collections'] = \count($shopifyCollections);
 
-        if ([] !== $shopifyImages) {
-            import_log(\sprintf('Enriching collections with %d Shopify image(s)...', \count($shopifyImages)));
-            $collectionsByHandle = enrich_collections_with_shopify_images($collectionsByHandle, $shopifyImages);
+        if ([] !== $shopifyCollections) {
+            import_log(\sprintf('Enriching collections with %d Shopify title(s) and image(s)...', \count($shopifyCollections)));
+            $collectionsByHandle = enrich_collections_with_shopify_data($collectionsByHandle, $shopifyCollections);
         }
     }
 
