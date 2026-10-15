@@ -48,7 +48,7 @@ final class ImportFetchTasks
     {
         yield [
             'task' => new AsTask('fetch', 'sylius:import:existing', 'Fetch products from sitemap and collections into YAML files'),
-            'function' => #[AsApi(async: true)] function (
+            'function' => #[AsApi(async: true, lock: 'shop:{project}')] function (
                 #[AsArgument]
                 ?string $url = null,
                 #[AsOption]
