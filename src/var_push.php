@@ -31,7 +31,7 @@ function resolve_import_var_push_config(): array
 
     if (null === $remoteDir || '' === $remoteDir) {
         throw new \RuntimeException(
-            'IMPORT_VAR_PUSH_REMOTE_DIR is not set (remote project root, e.g. /home/debian/sylius-starter-sales-kit).',
+            'IMPORT_VAR_PUSH_REMOTE_DIR is not set (remote project root, e.g. /home/deploy/htdocs/sales-kit/prod/current).',
         );
     }
 
