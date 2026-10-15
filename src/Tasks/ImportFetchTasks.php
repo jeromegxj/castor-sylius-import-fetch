@@ -8,14 +8,14 @@ use Castor\Api\Attribute\AsApi;
 use Castor\Attribute\AsArgument;
 use Castor\Attribute\AsOption;
 use Castor\Attribute\AsTask;
-use SyliusStarter\Core\App;
-use SyliusStarter\Import\ImportContext;
+use Sylius\Starter\Core\App;
+use Sylius\Starter\Import\ImportContext;
 
 use function Castor\io;
-use function SyliusStarter\Import\import_log;
-use function SyliusStarter\Import\parse_import_site_input;
-use function SyliusStarter\Import\resolve_cli_project_slug;
-use function SyliusStarter\Import\resolve_import_project;
+use function Sylius\Starter\Import\import_log;
+use function Sylius\Starter\Import\parse_import_site_input;
+use function Sylius\Starter\Import\resolve_cli_project_slug;
+use function Sylius\Starter\Import\resolve_import_project;
 use function SyliusStarter\ImportFetch\fetch_import_data;
 use function SyliusStarter\ImportFetch\push_import_var_to_remote;
 

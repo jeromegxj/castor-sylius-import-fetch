@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace SyliusStarter\ImportFetch;
 
-use SyliusStarter\Import\ImportContext;
+use Sylius\Starter\Import\ImportContext;
 
 use function Castor\io;
 use function Castor\run;
-use function SyliusStarter\Import\castor_host_dir;
-use function SyliusStarter\Import\import_log as import_package_log;
-use function SyliusStarter\Import\load_castor_env;
-use function SyliusStarter\Import\resolve_cli_project_slug;
+use function Sylius\Starter\Import\castor_host_dir;
+use function Sylius\Starter\Import\import_log as import_package_log;
+use function Sylius\Starter\Import\load_castor_env;
+use function Sylius\Starter\Import\resolve_cli_project_slug;
 
 /**
  * @return array{host: string, user: string, port: int, identityFile: ?string, remoteDir: string}

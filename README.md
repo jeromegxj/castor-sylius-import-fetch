@@ -2,7 +2,7 @@
 
 Castor plugin: fetch existing shop data from sitemap into YAML, and rsync import var to a remote server (`sylius:import:var:push`).
 
-Requires [`sylius-starter/sylius-starter`](https://github.com/sylius-starter/sylius-starter) branch **`sk-alignment`**.
+Requires [`sylius/starter-core`](https://github.com/sylius-starter/sylius-starter-core) and [`sylius/starter-import`](https://github.com/sylius-starter/sylius-starter-import).
 
 ## Installation
 
