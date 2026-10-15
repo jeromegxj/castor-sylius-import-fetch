@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SyliusStarter\ImportFetch\Tasks;
 
-/**
- * @deprecated Use ImportFetchTasks instead
+/*
+ * @deprecated Use ImportFetchTasks instead. An alias, as ImportFetchTasks is final.
  */
-final class ExistingFetchTasks extends ImportFetchTasks {}
+class_alias(ImportFetchTasks::class, ExistingFetchTasks::class);
