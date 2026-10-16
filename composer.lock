@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e40545bb37100618e55cf83903b6795",
+    "content-hash": "e7f29f645ea4f4dcec4d31157473d27d",
     "packages": [
         {
             "name": "castor-php/docker",
@@ -644,17 +644,17 @@
             "time": "2024-09-11T13:17:53+00:00"
         },
         {
-            "name": "sylius/starter-core",
+            "name": "sylius-starter/core",
             "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sylius-starter/sylius-starter-core.git",
-                "reference": "8089c5bb6aea317fc9b5e62695a87e84a41342cf"
+                "reference": "60298f7de15532d012ef32637d104a7e551ff90a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sylius-starter/sylius-starter-core/zipball/8089c5bb6aea317fc9b5e62695a87e84a41342cf",
-                "reference": "8089c5bb6aea317fc9b5e62695a87e84a41342cf",
+                "url": "https://api.github.com/repos/sylius-starter/sylius-starter-core/zipball/60298f7de15532d012ef32637d104a7e551ff90a",
+                "reference": "60298f7de15532d012ef32637d104a7e551ff90a",
                 "shasum": ""
             },
             "require": {
@@ -671,7 +671,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Sylius\\Starter\\Core\\": "src/"
+                    "SyliusStarter\\Core\\": "src/"
                 },
                 "files": [
                     "src/Installer/functions.php"
@@ -679,7 +679,7 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Sylius\\Starter\\Core\\Tests\\": "tests/"
+                    "SyliusStarter\\Core\\Tests\\": "tests/"
                 }
             },
             "license": [
@@ -702,25 +702,25 @@
                 "source": "https://github.com/sylius-starter/sylius-starter-core/tree/main",
                 "issues": "https://github.com/sylius-starter/sylius-starter-core/issues"
             },
-            "time": "2026-10-15T14:53:02+00:00"
+            "time": "2026-10-16T12:33:57+00:00"
         },
         {
-            "name": "sylius/starter-import",
+            "name": "sylius-starter/import",
             "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sylius-starter/sylius-starter-import.git",
-                "reference": "60137e731e6db3b0391220216f6afa8eaa9b6c91"
+                "reference": "2a82173112a2b6bef004da8f12a8b55924b1cc6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sylius-starter/sylius-starter-import/zipball/60137e731e6db3b0391220216f6afa8eaa9b6c91",
-                "reference": "60137e731e6db3b0391220216f6afa8eaa9b6c91",
+                "url": "https://api.github.com/repos/sylius-starter/sylius-starter-import/zipball/2a82173112a2b6bef004da8f12a8b55924b1cc6b",
+                "reference": "2a82173112a2b6bef004da8f12a8b55924b1cc6b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.3",
-                "sylius/starter-core": "self.version",
+                "sylius-starter/core": "self.version",
                 "symfony/ai-ollama-platform": "^0.12.0",
                 "symfony/ai-open-router-platform": "^0.12.0",
                 "symfony/ai-platform": "^0.12.0",
@@ -740,7 +740,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Sylius\\Starter\\Import\\": "src/"
+                    "SyliusStarter\\Import\\": "src/"
                 },
                 "files": [
                     "src/constants.php",
@@ -752,7 +752,7 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Sylius\\Starter\\Import\\Tests\\": "tests/"
+                    "SyliusStarter\\Import\\Tests\\": "tests/"
                 }
             },
             "license": [
@@ -775,7 +775,7 @@
                 "source": "https://github.com/sylius-starter/sylius-starter-import/tree/main",
                 "issues": "https://github.com/sylius-starter/sylius-starter-import/issues"
             },
-            "time": "2026-10-15T15:07:52+00:00"
+            "time": "2026-10-16T12:33:57+00:00"
         },
         {
             "name": "symfony/ai-generic-platform",
@@ -4764,8 +4764,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "sylius/starter-core": 20,
-        "sylius/starter-import": 20
+        "sylius-starter/core": 20,
+        "sylius-starter/import": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
