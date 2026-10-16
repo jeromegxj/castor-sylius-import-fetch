@@ -19,8 +19,8 @@
     ],
     "require": {
         "php": ">=8.3",
-        "sylius/starter-core": "^0.1@dev",
-        "sylius/starter-import": "^0.1@dev"
+        "sylius-starter/core": "^0.1@dev",
+        "sylius-starter/import": "^0.1@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "^13.2"
