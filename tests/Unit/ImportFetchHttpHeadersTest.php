@@ -39,4 +39,10 @@ final class ImportFetchHttpHeadersTest extends TestCase
         static::assertStringContainsString('text/html', $headers['Accept']);
         static::assertSame('1', $headers['Upgrade-Insecure-Requests']);
     }
+
+    public function testDoesNotForceAcceptEncoding(): void
+    {
+        // A forced Accept-Encoding disables the HTTP client's automatic decompression (e.g. Brotli bodies stay binary).
+        static::assertArrayNotHasKey('Accept-Encoding', import_fetch_request_headers());
+    }
 }

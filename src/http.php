@@ -19,7 +19,6 @@ function import_fetch_request_headers(): array
         'User-Agent' => IMPORT_FETCH_USER_AGENT,
         'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
         'Accept-Language' => 'fr-FR,fr;q=0.9,en;q=0.8',
-        'Accept-Encoding' => 'gzip, deflate, br',
         'Upgrade-Insecure-Requests' => '1',
         'Cache-Control' => 'no-cache',
     ];

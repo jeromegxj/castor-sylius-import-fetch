@@ -355,9 +355,7 @@ function decode_sitemap_content(string $content, string $url): string
 
 function fetch_sitemap_xml(\Symfony\Contracts\HttpClient\HttpClientInterface $client, string $url): \SimpleXMLElement
 {
-    $response = $client->request('GET', $url, [
-        'headers' => ['Accept-Encoding' => 'gzip, deflate'],
-    ]);
+    $response = $client->request('GET', $url);
     $content = decode_sitemap_content($response->getContent(), $url);
 
     $xml = simplexml_load_string($content);
@@ -806,9 +804,7 @@ function fetch_sitemap_product_extraction(
     bool $requireProductUrl = false,
     bool $allowMissingImage = false,
 ): array {
-    $response = $client->request('GET', $url, [
-        'headers' => ['Accept-Encoding' => 'gzip, deflate'],
-    ]);
+    $response = $client->request('GET', $url);
     ['reader' => $reader, 'tmpFile' => $tmpFile] = open_sitemap_reader($response->getContent(), $url);
 
     try {
@@ -1206,9 +1202,7 @@ function extract_collections_from_sitemap(
 
     foreach ($sitemapUrls as $sitemapUrl) {
         try {
-            $response = $client->request('GET', $sitemapUrl, [
-                'headers' => ['Accept-Encoding' => 'gzip, deflate'],
-            ]);
+            $response = $client->request('GET', $sitemapUrl);
             ['reader' => $reader, 'tmpFile' => $tmpFile] = open_sitemap_reader($response->getContent(), $sitemapUrl);
 
             try {
