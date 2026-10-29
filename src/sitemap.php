@@ -275,6 +275,35 @@ function extract_sitemap_urls_from_html(string $html, string $baseUrl): array
 }
 
 /**
+ * Magento publishes its sitemaps in /sitemap/ while robots.txt often declares them at the root.
+ *
+ * @param string[] $declaredUrls
+ *
+ * @return string[]
+ */
+function sitemap_folder_fallback_urls(array $declaredUrls, string $baseUrl): array
+{
+    $baseHost = parse_url($baseUrl, \PHP_URL_HOST);
+    $urls = [];
+
+    foreach ($declaredUrls as $declaredUrl) {
+        $parts = parse_url($declaredUrl);
+
+        if (!\is_array($parts) || !isset($parts['scheme'], $parts['host'], $parts['path']) || $parts['host'] !== $baseHost) {
+            continue;
+        }
+
+        if (str_starts_with($parts['path'], '/sitemap/')) {
+            continue;
+        }
+
+        $urls[] = \sprintf('%s://%s/sitemap/%s', $parts['scheme'], $parts['host'], basename($parts['path']));
+    }
+
+    return array_values(array_unique($urls));
+}
+
+/**
  * @return string[]
  */
 function discover_sitemap_candidate_urls(
@@ -291,6 +320,7 @@ function discover_sitemap_candidate_urls(
     }
 
     $candidates = array_merge($candidates, extract_sitemap_urls_from_html($html, $baseUrl));
+    $candidates = array_merge($candidates, sitemap_folder_fallback_urls($candidates, $baseUrl));
     $candidates = array_merge($candidates, default_sitemap_candidate_urls($baseUrl));
 
     return array_values(array_unique($candidates));
