@@ -113,7 +113,7 @@ final class ImportFetchTasks
                 #[AsOption]
                 bool $delete = false,
             ): void {
-                $this->withContext(function () use ($project, $dryRun, $delete): void {
+                $this->withContext(static function () use ($project, $dryRun, $delete): void {
                     if (null === $project || '' === trim($project)) {
                         io()->error('Project slug is required. Pass --project.');
 

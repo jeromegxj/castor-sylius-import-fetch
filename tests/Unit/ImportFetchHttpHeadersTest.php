@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit;
+namespace SyliusStarter\ImportFetch\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
@@ -10,11 +10,6 @@ use function SyliusStarter\ImportFetch\import_fetch_request_headers;
 
 final class ImportFetchHttpHeadersTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        require_once dirname(__DIR__, 2) . '/src/http.php';
-    }
-
     public function testUserAgentLooksLikeBrowserNotImportBot(): void
     {
         $headers = import_fetch_request_headers();

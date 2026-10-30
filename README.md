@@ -21,3 +21,11 @@ $syliusService = $syliusService
 ```
 
 Composer resolves public GitHub VCS repos (see consumer `castor.composer.json`).
+
+## Development
+
+```bash
+composer install
+composer ci      # PHPUnit + PHPStan + PHP CS Fixer (dry run)
+composer cs:fix  # apply coding standards
+```

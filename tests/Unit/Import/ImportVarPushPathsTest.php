@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit\Import;
+namespace SyliusStarter\ImportFetch\Tests\Unit\Import;
 
 use PHPUnit\Framework\TestCase;
 
@@ -16,8 +16,6 @@ final class ImportVarPushPathsTest extends TestCase
 
     protected function setUp(): void
     {
-        require_once dirname(__DIR__, 3) . '/src/var_push.php';
-
         foreach ([
             'IMPORT_VAR_PUSH_SSH_HOST',
             'IMPORT_VAR_PUSH_SSH_USER',
