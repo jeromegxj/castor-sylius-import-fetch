@@ -1,0 +1,92 @@
+name: Continuous Integration
+
+"on":
+    push:
+        branches: ["main"]
+        paths-ignore:
+            - "*.md"
+    pull_request:
+        branches: ["main"]
+        paths-ignore:
+            - "*.md"
+    # sylius-starter/core and sylius-starter/import are required as dev-main:
+    # catch upstream breakages even without changes here.
+    schedule:
+        - cron: "0 0 * * MON"
+    workflow_dispatch: ~
+
+concurrency:
+    group: ci-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+permissions:
+    contents: read
+
+jobs:
+    phpunit:
+        name: PHPUnit (PHP ${{ matrix.php }}${{ matrix.dependencies == 'highest' && ', latest dependencies' || '' }})
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        strategy:
+            fail-fast: false
+            matrix:
+                php: ["8.4", "8.5"]
+                dependencies: ["locked"]
+                include:
+                    - php: "8.4"
+                      dependencies: "highest"
+        steps:
+            - uses: actions/checkout@v6
+
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+                  extensions: xml, xmlreader, simplexml, zlib
+                  coverage: none
+                  tools: composer:v2
+
+            - uses: ramsey/composer-install@v3
+              with:
+                  dependency-versions: ${{ matrix.dependencies }}
+
+            - name: Run PHPUnit
+              run: composer test
+
+    phpstan:
+        name: PHPStan
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - uses: actions/checkout@v6
+
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: "8.4"
+                  coverage: none
+                  tools: composer:v2
+
+            - uses: ramsey/composer-install@v3
+
+            - name: Run PHPStan
+              run: composer phpstan -- --no-progress --error-format=github
+
+    cs:
+        name: Coding standards
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - uses: actions/checkout@v6
+
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: "8.4"
+                  coverage: none
+                  tools: composer:v2
+
+            - name: Validate composer.json
+              run: composer validate --strict
+
+            - uses: ramsey/composer-install@v3
+
+            - name: Run PHP CS Fixer
+              run: composer cs
