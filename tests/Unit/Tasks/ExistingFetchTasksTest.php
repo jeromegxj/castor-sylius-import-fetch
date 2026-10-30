@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit\Tasks;
+namespace SyliusStarter\ImportFetch\Tests\Unit\Tasks;
 
 use Castor\Attribute\AsTask;
 use SyliusStarter\ImportFetch\Tasks\ExistingFetchTasks;

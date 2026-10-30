@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit;
+namespace SyliusStarter\ImportFetch\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 

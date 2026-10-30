@@ -1,0 +1,11 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+    excludePaths:
+        # Deprecated class_alias of ImportFetchTasks, declared at runtime through bootstrapFiles.
+        - src/Tasks/ExistingFetchTasks.php
+    bootstrapFiles:
+        - tests/stubs/AsApi.php
+        - src/Tasks/ExistingFetchTasks.php

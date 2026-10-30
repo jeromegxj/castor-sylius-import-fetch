@@ -6,8 +6,6 @@ namespace SyliusStarter\ImportFetch;
 
 use Symfony\Component\Yaml\Yaml;
 
-use const SyliusStarter\Import\IMPORT_COLLECTION_AI_THRESHOLD;
-
 use function SyliusStarter\Import\ai_model;
 use function SyliusStarter\Import\ai_provider;
 use function SyliusStarter\Import\castor_var_dir;
@@ -21,6 +19,8 @@ use function SyliusStarter\Import\persist_project_config;
 use function SyliusStarter\Import\taxon_code_from_name;
 use function Castor\fs;
 use function Castor\io;
+
+use const SyliusStarter\Import\IMPORT_COLLECTION_AI_THRESHOLD;
 
 function fetch_import_data(?string $url, ?string $projectName = null, ?string $description = null, ?string $projectSlug = null): void
 {
@@ -129,68 +129,66 @@ function fetch_import_data(?string $url, ?string $projectName = null, ?string $d
     /** @var array<string, array{url: string, title: string, image: string}> $products */
     $products = [];
 
-    if (null !== $mainSitemap && null !== $sitemapUrl) {
-        if ([] !== $sitemapUrls) {
-            $sitemapUrls = sort_sitemap_urls_by_priority($sitemapUrls, $context['platform']);
-            io()->info(\sprintf('Found %d sub-sitemaps.', \count($sitemapUrls)));
-            if (stream_isatty(\STDOUT)) {
-                io()->progressStart(\count($sitemapUrls));
-            }
+    if ([] !== $sitemapUrls) {
+        $sitemapUrls = sort_sitemap_urls_by_priority($sitemapUrls, $context['platform']);
+        io()->info(\sprintf('Found %d sub-sitemaps.', \count($sitemapUrls)));
+        if (stream_isatty(\STDOUT)) {
+            io()->progressStart(\count($sitemapUrls));
+        }
 
-            $skippedSitemaps = [];
+        $skippedSitemaps = [];
 
-            foreach ($sitemapUrls as $subSitemapUrl) {
-                if (is_auxiliary_sitemap_url($subSitemapUrl)) {
-                    if (stream_isatty(\STDOUT)) {
-                        io()->progressAdvance();
-                    }
-
-                    continue;
-                }
-
-                try {
-                    $requireProductUrl = !is_product_sitemap_url($subSitemapUrl);
-                    $allowMissingImage = is_product_sitemap_url($subSitemapUrl);
-                    $extraction = fetch_sitemap_product_extraction(
-                        $client,
-                        $subSitemapUrl,
-                        $requireProductUrl,
-                        $allowMissingImage,
-                    );
-                    $products = merge_sitemap_products($products, $extraction['products']);
-                    $fetchStats['product_sitemaps'][] = [
-                        'url' => $subSitemapUrl,
-                        'source' => 'image_sitemap',
-                        'stats' => $extraction['stats'],
-                    ];
-                } catch (\Throwable $exception) {
-                    $skippedSitemaps[$subSitemapUrl] = $exception->getMessage();
-                }
-
+        foreach ($sitemapUrls as $subSitemapUrl) {
+            if (is_auxiliary_sitemap_url($subSitemapUrl)) {
                 if (stream_isatty(\STDOUT)) {
                     io()->progressAdvance();
                 }
+
+                continue;
+            }
+
+            try {
+                $requireProductUrl = !is_product_sitemap_url($subSitemapUrl);
+                $allowMissingImage = is_product_sitemap_url($subSitemapUrl);
+                $extraction = fetch_sitemap_product_extraction(
+                    $client,
+                    $subSitemapUrl,
+                    $requireProductUrl,
+                    $allowMissingImage,
+                );
+                $products = merge_sitemap_products($products, $extraction['products']);
+                $fetchStats['product_sitemaps'][] = [
+                    'url' => $subSitemapUrl,
+                    'source' => 'image_sitemap',
+                    'stats' => $extraction['stats'],
+                ];
+            } catch (\Throwable $exception) {
+                $skippedSitemaps[$subSitemapUrl] = $exception->getMessage();
             }
 
             if (stream_isatty(\STDOUT)) {
-                io()->progressFinish();
+                io()->progressAdvance();
             }
-
-            foreach ($skippedSitemaps as $subSitemapUrl => $message) {
-                io()->warning(\sprintf('Skipping sub-sitemap "%s": %s', $subSitemapUrl, $message));
-            }
-        } else {
-            import_log('No sub-sitemaps found in main sitemap.');
         }
 
-        $mainExtraction = extract_sitemap_products($mainSitemap, true);
-        $products = merge_sitemap_products($products, $mainExtraction['products']);
-        $fetchStats['product_sitemaps'][] = [
-            'url' => $sitemapUrl,
-            'source' => 'main_sitemap',
-            'stats' => $mainExtraction['stats'],
-        ];
+        if (stream_isatty(\STDOUT)) {
+            io()->progressFinish();
+        }
+
+        foreach ($skippedSitemaps as $subSitemapUrl => $message) {
+            io()->warning(\sprintf('Skipping sub-sitemap "%s": %s', $subSitemapUrl, $message));
+        }
+    } else {
+        import_log('No sub-sitemaps found in main sitemap.');
     }
+
+    $mainExtraction = extract_sitemap_products($mainSitemap, true);
+    $products = merge_sitemap_products($products, $mainExtraction['products']);
+    $fetchStats['product_sitemaps'][] = [
+        'url' => $sitemapUrl,
+        'source' => 'main_sitemap',
+        'stats' => $mainExtraction['stats'],
+    ];
 
     $fetchStats['products_before_dedup'] = \count($products);
     $products = deduplicate_products_by_locale($products, $context['locale'], $fetchStats);
@@ -235,7 +233,7 @@ function fetch_import_data(?string $url, ?string $projectName = null, ?string $d
     $fetchStats['html_category_links'] = \count($collectionsByHandle);
 
     import_log('Parsing category links from sitemaps...');
-    $allSitemapUrls = [] !== $sitemapUrls ? $sitemapUrls : (null !== $sitemapUrl ? [$sitemapUrl] : []);
+    $allSitemapUrls = [] !== $sitemapUrls ? $sitemapUrls : [$sitemapUrl];
     $sitemapCollections = extract_collections_from_sitemap($client, $allSitemapUrls, $fetchStats);
     $collectionsByHandle = merge_collections_by_handle($collectionsByHandle, $sitemapCollections);
     $fetchStats['collections_merged'] = \count($collectionsByHandle);
@@ -315,7 +313,7 @@ function fetch_import_data(?string $url, ?string $projectName = null, ?string $d
     );
 
     import_log(\sprintf('  merged (dedup) → %d', \count($collections)));
-    import_log(\sprintf('  AI fallback → %s', $fetchStats['collections_ai'] ?? 'skipped'));
+    import_log(\sprintf('  AI fallback → %s', $fetchStats['collections_ai']));
 
     log_fetch_source_report($context, $fetchStats);
 

@@ -8,10 +8,6 @@ use SyliusStarter\Import\Dto\CollectionExtraction;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
 
-use const SyliusStarter\Import\HTML_MAX_LENGTH;
-use const SyliusStarter\Import\IMPORT_LOCALE_PREFERENCE;
-use const SyliusStarter\Import\IMPORT_PLATFORM_SHOPIFY_THRESHOLD;
-
 use function SyliusStarter\Import\clean_html_for_ai;
 use function SyliusStarter\Import\create_ai_platform;
 use function SyliusStarter\Import\deserialize_collection_extraction;
@@ -23,12 +19,22 @@ use function SyliusStarter\Import\is_category_url;
 use function SyliusStarter\Import\is_product_url;
 use function SyliusStarter\Import\normalize_label_for_matching;
 use function SyliusStarter\Import\product_dedup_key_from_url;
+use function SyliusStarter\Import\strip_import_url_locale_prefix;
 use function SyliusStarter\Import\title_from_url_slug;
 use function Castor\context;
 use function Castor\fs;
 use function Castor\io;
 use function Castor\run;
 
+use const SyliusStarter\Import\HTML_MAX_LENGTH;
+use const SyliusStarter\Import\IMPORT_LOCALE_PREFERENCE;
+use const SyliusStarter\Import\IMPORT_PLATFORM_SHOPIFY_THRESHOLD;
+
+/**
+ * @param array<string, mixed> $stats
+ *
+ * @return array{base_url: string, host: string, platform: string, platform_score: int, locale: string, stats: array<string, mixed>}
+ */
 function create_import_context(string $baseUrl, string $host, string $platform, int $platformScore, array $stats = []): array
 {
     return [
@@ -239,7 +245,7 @@ function extract_sitemap_urls_from_robots(string $robotsContent): array
 {
     $urls = [];
 
-    foreach (preg_split('/\r\n|\r|\n/', $robotsContent) as $line) {
+    foreach (preg_split('/\r\n|\r|\n/', $robotsContent) ?: [] as $line) {
         $line = trim($line);
 
         if ('' === $line || str_starts_with($line, '#')) {
@@ -433,7 +439,7 @@ function extract_sitemap_urls(\SimpleXMLElement $xml): array
 }
 
 /**
- * @param array{total_urls: int, matched: int, rejected: array<string, int>, sample_rejection: ?string} $stats
+ * @param array{total_urls: int, matched: int, rejected: array<string, int>, sample_rejection: ?string, accepted_without_image?: int} $stats
  *
  * @return array{url: string, title: string, image: string}|null
  */
@@ -793,8 +799,8 @@ function decompress_sitemap_to_temp_file(string $raw): string
  */
 function open_sitemap_reader(string $raw, string $url): array
 {
-    $path = parse_url($url, \PHP_URL_PATH) ?? '';
-    $isGzFile = str_ends_with(strtolower($path), '.gz');
+    $path = parse_url($url, \PHP_URL_PATH);
+    $isGzFile = \is_string($path) && str_ends_with(strtolower($path), '.gz');
     $isGzContent = '' !== $raw && "\x1f\x8b" === substr($raw, 0, 2);
     $reader = new \XMLReader();
     $tmpFile = null;
@@ -808,7 +814,7 @@ function open_sitemap_reader(string $raw, string $url): array
     } else {
         $content = ensure_sitemap_image_namespace(decode_sitemap_content($raw, $url));
 
-        if (!$reader->XML($content)) {
+        if ('' === $content || !$reader->XML($content)) {
             throw new \RuntimeException(\sprintf('Invalid XML received from "%s".', $url));
         }
     }
@@ -1087,9 +1093,7 @@ function extract_collections_from_html(string $html, string $baseUrl): array
 }
 
 /**
- * @param string[] $sitemapUrls
- *
- * @return array<string, array{name: string, image?: string}>
+ * @return array{handle: string, name: string}|null
  */
 function collection_from_catalog_url(string $url): ?array
 {
@@ -1121,6 +1125,7 @@ function collection_from_catalog_url(string $url): ?array
 
 /**
  * @param array<string, array{name: string, image?: string}> $byHandle
+ * @param array<string, mixed>                                $stats
  */
 function extract_collections_from_sitemap_reader(\XMLReader $reader, bool $isCatalogSitemap, array &$byHandle, array &$stats): void
 {
@@ -1160,6 +1165,7 @@ function extract_collections_from_sitemap_reader(\XMLReader $reader, bool $isCat
 
 /**
  * @param array<string, array{name: string, image?: string}> $byHandle
+ * @param array<string, mixed>                                $stats
  */
 function remember_sitemap_collection(
     array &$byHandle,
@@ -1221,6 +1227,12 @@ function is_image_file_path(string $path): bool
     return 1 === preg_match('/\.(?:jpe?g|png|gif|webp|avif|svg|bmp|tiff?)$/i', $path);
 }
 
+/**
+ * @param string[]             $sitemapUrls
+ * @param array<string, mixed> $stats
+ *
+ * @return array<string, array{name: string, image?: string}>
+ */
 function extract_collections_from_sitemap(
     \Symfony\Contracts\HttpClient\HttpClientInterface $client,
     array $sitemapUrls,
@@ -1461,7 +1473,7 @@ function normalize_collections_for_yaml(array $byHandle): array
 
         $row = ['name' => $name];
 
-        if (isset($entry['image']) && \is_string($entry['image'])) {
+        if (isset($entry['image'])) {
             $image = trim($entry['image']);
 
             if ('' !== $image && 'null' !== strtolower($image)) {
@@ -1562,7 +1574,8 @@ function log_sitemap_product_stats(string $sitemapUrl, array $stats, string $sou
 }
 
 /**
- * @param array<string, mixed> $stats
+ * @param array{platform: string, platform_score: int} $context
+ * @param array<string, mixed>                          $stats
  */
 function log_fetch_source_report(array $context, array $stats): void
 {
