@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce2b390a4f65f99d88b6e510079da484",
+    "content-hash": "34cfe2b8c08783dac4a6e2c420dc2b5b",
     "packages": [
         {
             "name": "castor-php/docker",
-            "version": "v0.6.0",
+            "version": "v0.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/castor-php/docker.git",
-                "reference": "cd4bf24cf229bdfbc85197a6c06086bfd3ca1156"
+                "reference": "8c3999501b5a5d1480d7161a26380150db9e290d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/castor-php/docker/zipball/cd4bf24cf229bdfbc85197a6c06086bfd3ca1156",
-                "reference": "cd4bf24cf229bdfbc85197a6c06086bfd3ca1156",
+                "url": "https://api.github.com/repos/castor-php/docker/zipball/8c3999501b5a5d1480d7161a26380150db9e290d",
+                "reference": "8c3999501b5a5d1480d7161a26380150db9e290d",
                 "shasum": ""
             },
             "require": {
@@ -34,7 +34,10 @@
                 "files": [
                     "src/functions.php",
                     "src/router.php",
-                    "src/tasks.php"
+                    "src/tasks.php",
+                    "src/tunnel.php",
+                    "src/worktree.php",
+                    "src/database.php"
                 ],
                 "psr-4": {
                     "Castor\\Docker\\": "src/"
@@ -53,26 +56,26 @@
             "description": "Castor plugin for docker",
             "support": {
                 "issues": "https://github.com/castor-php/docker/issues",
-                "source": "https://github.com/castor-php/docker/tree/v0.6.0"
+                "source": "https://github.com/castor-php/docker/tree/v0.10.1"
             },
-            "time": "2026-09-17T14:36:14+00:00"
+            "time": "2026-10-07T09:42:31+00:00"
         },
         {
             "name": "doctrine/deprecations",
-            "version": "1.1.6",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/deprecations.git",
-                "reference": "d4fe3e6fd9bb9e72557a19674f44d8ac7db4c6ca"
+                "reference": "d2e16653a734c8784c1851ad68b02f997b53ca82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/d4fe3e6fd9bb9e72557a19674f44d8ac7db4c6ca",
-                "reference": "d4fe3e6fd9bb9e72557a19674f44d8ac7db4c6ca",
+                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/d2e16653a734c8784c1851ad68b02f997b53ca82",
+                "reference": "d2e16653a734c8784c1851ad68b02f997b53ca82",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0"
+                "php": "^7.4 || ^8.0"
             },
             "conflict": {
                 "phpunit/phpunit": "<=7.5 || >=14"
@@ -101,9 +104,9 @@
             "homepage": "https://www.doctrine-project.org/",
             "support": {
                 "issues": "https://github.com/doctrine/deprecations/issues",
-                "source": "https://github.com/doctrine/deprecations/tree/1.1.6"
+                "source": "https://github.com/doctrine/deprecations/tree/1.2.0"
             },
-            "time": "2026-02-07T07:09:04+00:00"
+            "time": "2026-11-11T10:04:49+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -161,6 +164,140 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v5.9.0"
             },
             "time": "2026-09-13T18:51:52+00:00"
+        },
+        {
+            "name": "opencolibri/starter-core",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opencolibri/starter-core.git",
+                "reference": "69b3909aee1231f8e917684e645d7b180ceb6a12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opencolibri/starter-core/zipball/69b3909aee1231f8e917684e645d7b180ceb6a12",
+                "reference": "69b3909aee1231f8e917684e645d7b180ceb6a12",
+                "shasum": ""
+            },
+            "require": {
+                "castor-php/docker": "^0.10",
+                "nikic/php-parser": "^5.0",
+                "php": ">=8.3"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OpenColibri\\Starter\\Core\\": "src/"
+                },
+                "files": [
+                    "src/Installer/functions.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "OpenColibri\\Starter\\Core\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Loïc Frémont",
+                    "email": "lfremont@jolicode.com"
+                }
+            ],
+            "description": "Colibri Starter core: Castor plugin providing the Sylius Docker service, installer and shared utilities",
+            "homepage": "https://github.com/opencolibri/colibri-starter",
+            "keywords": [
+                "castor",
+                "starter",
+                "sylius"
+            ],
+            "support": {
+                "source": "https://github.com/opencolibri/starter-core/tree/main",
+                "issues": "https://github.com/opencolibri/starter-core/issues"
+            },
+            "time": "2026-11-13T16:51:31+00:00"
+        },
+        {
+            "name": "opencolibri/starter-import",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opencolibri/starter-import.git",
+                "reference": "54dccea9b3823adddea963cf2728321589f72cf1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opencolibri/starter-import/zipball/54dccea9b3823adddea963cf2728321589f72cf1",
+                "reference": "54dccea9b3823adddea963cf2728321589f72cf1",
+                "shasum": ""
+            },
+            "require": {
+                "opencolibri/starter-core": "self.version",
+                "php": ">=8.3",
+                "symfony/ai-ollama-platform": "^0.12.0",
+                "symfony/ai-open-router-platform": "^0.12.0",
+                "symfony/ai-platform": "^0.12.0",
+                "symfony/dotenv": "^7.4|^8.0",
+                "symfony/http-client": "^7.4|^8.0",
+                "symfony/yaml": "^7.4|^8.0"
+            },
+            "suggest": {
+                "jolicode/castor-api": "Expose import tasks over HTTP"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OpenColibri\\Starter\\Import\\": "src/"
+                },
+                "files": [
+                    "src/constants.php",
+                    "src/ImportContext.php",
+                    "src/ImportBootstrap.php",
+                    "src/bootstrap.php",
+                    "src/functions.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "OpenColibri\\Starter\\Import\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Loïc Frémont",
+                    "email": "lfremont@jolicode.com"
+                }
+            ],
+            "description": "Castor tasks to import an existing shop catalog into Sylius, with optional AI enrichment",
+            "homepage": "https://github.com/opencolibri/colibri-starter",
+            "keywords": [
+                "castor",
+                "starter",
+                "sylius"
+            ],
+            "support": {
+                "source": "https://github.com/opencolibri/starter-import/tree/main",
+                "issues": "https://github.com/opencolibri/starter-import/issues"
+            },
+            "time": "2026-11-13T16:51:31+00:00"
         },
         {
             "name": "oskarstark/enum-helper",
@@ -397,16 +534,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "2.4.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "e3647094ed8f0f1f67393d812b793a5143e25af3"
+                "reference": "af8e840551031d254cfdb3a18a62c3470a309c10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/e3647094ed8f0f1f67393d812b793a5143e25af3",
-                "reference": "e3647094ed8f0f1f67393d812b793a5143e25af3",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/af8e840551031d254cfdb3a18a62c3470a309c10",
+                "reference": "af8e840551031d254cfdb3a18a62c3470a309c10",
                 "shasum": ""
             },
             "require": {
@@ -438,9 +575,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.4.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.4.1"
             },
-            "time": "2026-10-28T20:28:58+00:00"
+            "time": "2026-10-30T19:36:28+00:00"
         },
         {
             "name": "psr/clock",
@@ -642,140 +779,6 @@
                 "source": "https://github.com/php-fig/log/tree/3.0.2"
             },
             "time": "2024-09-11T13:17:53+00:00"
-        },
-        {
-            "name": "sylius-starter/core",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sylius-starter/sylius-starter-core.git",
-                "reference": "60298f7de15532d012ef32637d104a7e551ff90a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sylius-starter/sylius-starter-core/zipball/60298f7de15532d012ef32637d104a7e551ff90a",
-                "reference": "60298f7de15532d012ef32637d104a7e551ff90a",
-                "shasum": ""
-            },
-            "require": {
-                "castor-php/docker": "^0.6.0",
-                "nikic/php-parser": "^5.0",
-                "php": ">=8.3"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "0.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "SyliusStarter\\Core\\": "src/"
-                },
-                "files": [
-                    "src/Installer/functions.php"
-                ]
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "SyliusStarter\\Core\\Tests\\": "tests/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Loïc Frémont",
-                    "email": "lfremont@jolicode.com"
-                }
-            ],
-            "description": "Sylius Starter core: Castor plugin providing the Sylius Docker service, installer and shared utilities",
-            "homepage": "https://github.com/sylius-starter/sylius-starter",
-            "keywords": [
-                "castor",
-                "starter",
-                "sylius"
-            ],
-            "support": {
-                "source": "https://github.com/sylius-starter/sylius-starter-core/tree/main",
-                "issues": "https://github.com/sylius-starter/sylius-starter-core/issues"
-            },
-            "time": "2026-10-16T12:33:57+00:00"
-        },
-        {
-            "name": "sylius-starter/import",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sylius-starter/sylius-starter-import.git",
-                "reference": "2a82173112a2b6bef004da8f12a8b55924b1cc6b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sylius-starter/sylius-starter-import/zipball/2a82173112a2b6bef004da8f12a8b55924b1cc6b",
-                "reference": "2a82173112a2b6bef004da8f12a8b55924b1cc6b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.3",
-                "sylius-starter/core": "self.version",
-                "symfony/ai-ollama-platform": "^0.12.0",
-                "symfony/ai-open-router-platform": "^0.12.0",
-                "symfony/ai-platform": "^0.12.0",
-                "symfony/dotenv": "^7.4|^8.0",
-                "symfony/http-client": "^7.4|^8.0",
-                "symfony/yaml": "^7.4|^8.0"
-            },
-            "suggest": {
-                "jolicode/castor-api": "Expose import tasks over HTTP"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "0.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "SyliusStarter\\Import\\": "src/"
-                },
-                "files": [
-                    "src/constants.php",
-                    "src/ImportContext.php",
-                    "src/ImportBootstrap.php",
-                    "src/bootstrap.php",
-                    "src/functions.php"
-                ]
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "SyliusStarter\\Import\\Tests\\": "tests/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Loïc Frémont",
-                    "email": "lfremont@jolicode.com"
-                }
-            ],
-            "description": "Castor tasks to import an existing shop catalog into Sylius, with optional AI enrichment",
-            "homepage": "https://github.com/sylius-starter/sylius-starter",
-            "keywords": [
-                "castor",
-                "starter",
-                "sylius"
-            ],
-            "support": {
-                "source": "https://github.com/sylius-starter/sylius-starter-import/tree/main",
-                "issues": "https://github.com/sylius-starter/sylius-starter-import/issues"
-            },
-            "time": "2026-10-16T12:33:57+00:00"
         },
         {
             "name": "symfony/ai-generic-platform",
@@ -1246,16 +1249,16 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.7.1",
+            "version": "v3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "f3202fa1b5097b0af062dc978b32ecf63404e31d"
+                "reference": "feb1edf4e546af3b85c5caebe8359a20db230ca3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/f3202fa1b5097b0af062dc978b32ecf63404e31d",
-                "reference": "f3202fa1b5097b0af062dc978b32ecf63404e31d",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/feb1edf4e546af3b85c5caebe8359a20db230ca3",
+                "reference": "feb1edf4e546af3b85c5caebe8359a20db230ca3",
                 "shasum": ""
             },
             "require": {
@@ -1268,7 +1271,7 @@
                     "name": "symfony/contracts"
                 },
                 "branch-alias": {
-                    "dev-main": "3.7-dev"
+                    "dev-main": "3.8-dev"
                 }
             },
             "autoload": {
@@ -1293,7 +1296,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.7.1"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.8.1"
             },
             "funding": [
                 {
@@ -1313,7 +1316,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-05T06:23:12+00:00"
+            "time": "2026-09-16T14:15:10+00:00"
         },
         {
             "name": "symfony/dotenv",
@@ -1477,16 +1480,16 @@
         },
         {
             "name": "symfony/event-dispatcher-contracts",
-            "version": "v3.7.1",
+            "version": "v3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher-contracts.git",
-                "reference": "c7de7a00ffb67842132da02ea92988a39ccd9f4e"
+                "reference": "658e29751424da3ef4758c60f769e59d1b2981eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/c7de7a00ffb67842132da02ea92988a39ccd9f4e",
-                "reference": "c7de7a00ffb67842132da02ea92988a39ccd9f4e",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/658e29751424da3ef4758c60f769e59d1b2981eb",
+                "reference": "658e29751424da3ef4758c60f769e59d1b2981eb",
                 "shasum": ""
             },
             "require": {
@@ -1500,7 +1503,7 @@
                     "name": "symfony/contracts"
                 },
                 "branch-alias": {
-                    "dev-main": "3.7-dev"
+                    "dev-main": "3.8-dev"
                 }
             },
             "autoload": {
@@ -1533,7 +1536,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v3.7.1"
+                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v3.8.1"
             },
             "funding": [
                 {
@@ -1553,20 +1556,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-05T06:23:12+00:00"
+            "time": "2026-09-16T14:15:10+00:00"
         },
         {
             "name": "symfony/http-client",
-            "version": "v8.1.10",
+            "version": "v8.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "1f6bd9bb0dddbbb1b88823e26c6d05fc3ba89219"
+                "reference": "1758b323ba9c5e88b42602b9c2cb27b640de4d36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/1f6bd9bb0dddbbb1b88823e26c6d05fc3ba89219",
-                "reference": "1f6bd9bb0dddbbb1b88823e26c6d05fc3ba89219",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/1758b323ba9c5e88b42602b9c2cb27b640de4d36",
+                "reference": "1758b323ba9c5e88b42602b9c2cb27b640de4d36",
                 "shasum": ""
             },
             "require": {
@@ -1630,7 +1633,7 @@
                 "http"
             ],
             "support": {
-                "source": "https://github.com/symfony/http-client/tree/v8.1.10"
+                "source": "https://github.com/symfony/http-client/tree/v8.1.11"
             },
             "funding": [
                 {
@@ -1650,20 +1653,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-26T21:55:04+00:00"
+            "time": "2026-11-04T08:39:20+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
-            "version": "v3.7.3",
+            "version": "v3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client-contracts.git",
-                "reference": "35be0019e2c2c9fba80f9dc033290a5240f7b44f"
+                "reference": "f9f94260f787446c6fd430b2ae1969fe41ae1ba8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client-contracts/zipball/35be0019e2c2c9fba80f9dc033290a5240f7b44f",
-                "reference": "35be0019e2c2c9fba80f9dc033290a5240f7b44f",
+                "url": "https://api.github.com/repos/symfony/http-client-contracts/zipball/f9f94260f787446c6fd430b2ae1969fe41ae1ba8",
+                "reference": "f9f94260f787446c6fd430b2ae1969fe41ae1ba8",
                 "shasum": ""
             },
             "require": {
@@ -1676,7 +1679,7 @@
                     "name": "symfony/contracts"
                 },
                 "branch-alias": {
-                    "dev-main": "3.7-dev"
+                    "dev-main": "3.8-dev"
                 }
             },
             "autoload": {
@@ -1712,7 +1715,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/http-client-contracts/tree/v3.7.3"
+                "source": "https://github.com/symfony/http-client-contracts/tree/v3.8.1"
             },
             "funding": [
                 {
@@ -1732,7 +1735,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-04T08:41:16+00:00"
+            "time": "2026-10-04T15:04:25+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -2154,16 +2157,16 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v8.1.4",
+            "version": "v8.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
-                "reference": "1a41232c678972b93ce499a504e19ea09dfcd0b2"
+                "reference": "d080c2afa37114d46e4f950ed8593667f01f7cab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-access/zipball/1a41232c678972b93ce499a504e19ea09dfcd0b2",
-                "reference": "1a41232c678972b93ce499a504e19ea09dfcd0b2",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/d080c2afa37114d46e4f950ed8593667f01f7cab",
+                "reference": "d080c2afa37114d46e4f950ed8593667f01f7cab",
                 "shasum": ""
             },
             "require": {
@@ -2211,7 +2214,7 @@
                 "reflection"
             ],
             "support": {
-                "source": "https://github.com/symfony/property-access/tree/v8.1.4"
+                "source": "https://github.com/symfony/property-access/tree/v8.1.11"
             },
             "funding": [
                 {
@@ -2231,20 +2234,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-30T12:40:56+00:00"
+            "time": "2026-11-01T19:30:44+00:00"
         },
         {
             "name": "symfony/property-info",
-            "version": "v8.1.8",
+            "version": "v8.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-info.git",
-                "reference": "fe727d4888a92ac9200a2c1b8e0a995b6022afa7"
+                "reference": "b5afa379a5b54f15a594c1d45ceaa19969d38a16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-info/zipball/fe727d4888a92ac9200a2c1b8e0a995b6022afa7",
-                "reference": "fe727d4888a92ac9200a2c1b8e0a995b6022afa7",
+                "url": "https://api.github.com/repos/symfony/property-info/zipball/b5afa379a5b54f15a594c1d45ceaa19969d38a16",
+                "reference": "b5afa379a5b54f15a594c1d45ceaa19969d38a16",
                 "shasum": ""
             },
             "require": {
@@ -2297,7 +2300,7 @@
                 "validator"
             ],
             "support": {
-                "source": "https://github.com/symfony/property-info/tree/v8.1.8"
+                "source": "https://github.com/symfony/property-info/tree/v8.1.11"
             },
             "funding": [
                 {
@@ -2317,20 +2320,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-28T19:13:15+00:00"
+            "time": "2026-11-02T10:58:30+00:00"
         },
         {
             "name": "symfony/serializer",
-            "version": "v8.1.9",
+            "version": "v8.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/serializer.git",
-                "reference": "bc6f84d67225d7a25d56af6d4bd52e9e34997a96"
+                "reference": "05624c94507c3acf065b6486bb626f0d741af459"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer/zipball/bc6f84d67225d7a25d56af6d4bd52e9e34997a96",
-                "reference": "bc6f84d67225d7a25d56af6d4bd52e9e34997a96",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/05624c94507c3acf065b6486bb626f0d741af459",
+                "reference": "05624c94507c3acf065b6486bb626f0d741af459",
                 "shasum": ""
             },
             "require": {
@@ -2396,7 +2399,7 @@
             "description": "Handles serializing and deserializing data structures, including object graphs, into array structures or other formats like XML and JSON.",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/serializer/tree/v8.1.9"
+                "source": "https://github.com/symfony/serializer/tree/v8.1.11"
             },
             "funding": [
                 {
@@ -2416,20 +2419,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-12T19:11:16+00:00"
+            "time": "2026-11-04T08:39:20+00:00"
         },
         {
             "name": "symfony/service-contracts",
-            "version": "v3.7.3",
+            "version": "v3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "15e6a07ec2a2c75ceb1b21dd98105ee8456d2257"
+                "reference": "052852a96fd5e5ebdb617dba22031e41a3300fb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/15e6a07ec2a2c75ceb1b21dd98105ee8456d2257",
-                "reference": "15e6a07ec2a2c75ceb1b21dd98105ee8456d2257",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/052852a96fd5e5ebdb617dba22031e41a3300fb5",
+                "reference": "052852a96fd5e5ebdb617dba22031e41a3300fb5",
                 "shasum": ""
             },
             "require": {
@@ -2447,7 +2450,7 @@
                     "name": "symfony/contracts"
                 },
                 "branch-alias": {
-                    "dev-main": "3.7-dev"
+                    "dev-main": "3.8-dev"
                 }
             },
             "autoload": {
@@ -2483,7 +2486,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/service-contracts/tree/v3.7.3"
+                "source": "https://github.com/symfony/service-contracts/tree/v3.8.1"
             },
             "funding": [
                 {
@@ -2503,7 +2506,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-27T15:39:01+00:00"
+            "time": "2026-10-20T17:38:25+00:00"
         },
         {
             "name": "symfony/string",
@@ -2597,16 +2600,16 @@
         },
         {
             "name": "symfony/type-info",
-            "version": "v8.1.8",
+            "version": "v8.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/type-info.git",
-                "reference": "18e1d891f0b8776141f281f7b6f5e67e4df9d9cd"
+                "reference": "9fd1414061c4bbf953bcfc183b133cbfa0a73c73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/type-info/zipball/18e1d891f0b8776141f281f7b6f5e67e4df9d9cd",
-                "reference": "18e1d891f0b8776141f281f7b6f5e67e4df9d9cd",
+                "url": "https://api.github.com/repos/symfony/type-info/zipball/9fd1414061c4bbf953bcfc183b133cbfa0a73c73",
+                "reference": "9fd1414061c4bbf953bcfc183b133cbfa0a73c73",
                 "shasum": ""
             },
             "require": {
@@ -2655,7 +2658,7 @@
                 "type"
             ],
             "support": {
-                "source": "https://github.com/symfony/type-info/tree/v8.1.8"
+                "source": "https://github.com/symfony/type-info/tree/v8.1.11"
             },
             "funding": [
                 {
@@ -2675,7 +2678,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-28T19:13:15+00:00"
+            "time": "2026-11-02T10:58:30+00:00"
         },
         {
             "name": "symfony/uid",
@@ -2757,16 +2760,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v8.1.10",
+            "version": "v8.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "9de4ff9874dd18b738b9f248398c3e36ef15a1d2"
+                "reference": "e8266f55160f674f290a5f567cb55e11e21f921b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/9de4ff9874dd18b738b9f248398c3e36ef15a1d2",
-                "reference": "9de4ff9874dd18b738b9f248398c3e36ef15a1d2",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/e8266f55160f674f290a5f567cb55e11e21f921b",
+                "reference": "e8266f55160f674f290a5f567cb55e11e21f921b",
                 "shasum": ""
             },
             "require": {
@@ -2809,7 +2812,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v8.1.10"
+                "source": "https://github.com/symfony/yaml/tree/v8.1.11"
             },
             "funding": [
                 {
@@ -2829,20 +2832,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-18T14:56:39+00:00"
+            "time": "2026-11-04T08:39:20+00:00"
         },
         {
             "name": "webmozart/assert",
-            "version": "2.5.0",
+            "version": "2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "8a163706bbcac613733dba03f51e13b5eb1bb819"
+                "reference": "e578132c01bd0c64108386ab20d8217cd175ddec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/8a163706bbcac613733dba03f51e13b5eb1bb819",
-                "reference": "8a163706bbcac613733dba03f51e13b5eb1bb819",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/e578132c01bd0c64108386ab20d8217cd175ddec",
+                "reference": "e578132c01bd0c64108386ab20d8217cd175ddec",
                 "shasum": ""
             },
             "require": {
@@ -2893,9 +2896,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/2.5.0"
+                "source": "https://github.com/webmozarts/assert/tree/2.5.1"
             },
-            "time": "2026-10-05T23:14:19+00:00"
+            "time": "2026-11-15T13:41:13+00:00"
         }
     ],
     "packages-dev": [
@@ -9338,8 +9341,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "sylius-starter/core": 20,
-        "sylius-starter/import": 20
+        "opencolibri/starter-core": 20,
+        "opencolibri/starter-import": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

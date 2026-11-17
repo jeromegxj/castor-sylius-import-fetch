@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function SyliusStarter\ImportFetch\deduplicate_products_by_locale;
-use function SyliusStarter\ImportFetch\detect_preferred_locale;
-use function SyliusStarter\ImportFetch\product_locale_from_url;
+use function OpenColibri\Starter\ImportFetch\deduplicate_products_by_locale;
+use function OpenColibri\Starter\ImportFetch\detect_preferred_locale;
+use function OpenColibri\Starter\ImportFetch\product_locale_from_url;
 
 final class LocaleDedupTest extends TestCase
 {

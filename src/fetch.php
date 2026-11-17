@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch;
+namespace OpenColibri\Starter\ImportFetch;
 
 use Symfony\Component\Yaml\Yaml;
 
-use function SyliusStarter\Import\ai_model;
-use function SyliusStarter\Import\ai_provider;
-use function SyliusStarter\Import\castor_var_dir;
-use function SyliusStarter\Import\castor_var_path;
-use function SyliusStarter\Import\ensure_castor_var_dir;
-use function SyliusStarter\Import\ensure_import_ai_ready;
-use function SyliusStarter\Import\import_log;
-use function SyliusStarter\Import\normalize_import_name;
-use function SyliusStarter\Import\parse_import_site_input;
-use function SyliusStarter\Import\persist_project_config;
-use function SyliusStarter\Import\taxon_code_from_name;
+use function OpenColibri\Starter\Import\ai_model;
+use function OpenColibri\Starter\Import\ai_provider;
+use function OpenColibri\Starter\Import\castor_var_dir;
+use function OpenColibri\Starter\Import\castor_var_path;
+use function OpenColibri\Starter\Import\ensure_castor_var_dir;
+use function OpenColibri\Starter\Import\ensure_import_ai_ready;
+use function OpenColibri\Starter\Import\import_log;
+use function OpenColibri\Starter\Import\normalize_import_name;
+use function OpenColibri\Starter\Import\parse_import_site_input;
+use function OpenColibri\Starter\Import\persist_project_config;
+use function OpenColibri\Starter\Import\taxon_code_from_name;
 use function Castor\fs;
 use function Castor\io;
 
-use const SyliusStarter\Import\IMPORT_COLLECTION_AI_THRESHOLD;
+use const OpenColibri\Starter\Import\IMPORT_COLLECTION_AI_THRESHOLD;
 
 function fetch_import_data(?string $url, ?string $projectName = null, ?string $description = null, ?string $projectSlug = null): void
 {

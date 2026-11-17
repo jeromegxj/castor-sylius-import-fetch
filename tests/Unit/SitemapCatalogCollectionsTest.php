@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function SyliusStarter\ImportFetch\collection_from_catalog_url;
-use function SyliusStarter\ImportFetch\extract_collections_from_sitemap_reader;
+use function OpenColibri\Starter\ImportFetch\collection_from_catalog_url;
+use function OpenColibri\Starter\ImportFetch\extract_collections_from_sitemap_reader;
 
 final class SitemapCatalogCollectionsTest extends TestCase
 {

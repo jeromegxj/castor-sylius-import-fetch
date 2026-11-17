@@ -9,7 +9,7 @@ name: Continuous Integration
         branches: ["main"]
         paths-ignore:
             - "*.md"
-    # sylius-starter/core and sylius-starter/import are required as dev-main:
+    # opencolibri/starter-core and opencolibri/starter-import are required as dev-main:
     # catch upstream breakages even without changes here.
     schedule:
         - cron: "0 0 * * MON"

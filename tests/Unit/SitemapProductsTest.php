@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function SyliusStarter\ImportFetch\ensure_sitemap_image_namespace;
-use function SyliusStarter\ImportFetch\extract_sitemap_products_from_reader;
-use function SyliusStarter\ImportFetch\patch_sitemap_urlset_tag;
+use function OpenColibri\Starter\ImportFetch\ensure_sitemap_image_namespace;
+use function OpenColibri\Starter\ImportFetch\extract_sitemap_products_from_reader;
+use function OpenColibri\Starter\ImportFetch\patch_sitemap_urlset_tag;
 
 final class SitemapProductsTest extends TestCase
 {

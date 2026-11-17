@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit\Import;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit\Import;
 
 use PHPUnit\Framework\TestCase;
 
-use function SyliusStarter\ImportFetch\import_var_remote_dir;
-use function SyliusStarter\ImportFetch\resolve_import_var_push_config;
+use function OpenColibri\Starter\ImportFetch\import_var_remote_dir;
+use function OpenColibri\Starter\ImportFetch\resolve_import_var_push_config;
 
 final class ImportVarPushPathsTest extends TestCase
 {

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
-use function SyliusStarter\ImportFetch\fetch_shopify_collections;
-use function SyliusStarter\ImportFetch\merge_collections_by_handle;
-use function SyliusStarter\ImportFetch\normalize_collections_for_yaml;
+use function OpenColibri\Starter\ImportFetch\fetch_shopify_collections;
+use function OpenColibri\Starter\ImportFetch\merge_collections_by_handle;
+use function OpenColibri\Starter\ImportFetch\normalize_collections_for_yaml;
 
 final class ShopifyCollectionsTest extends TestCase
 {

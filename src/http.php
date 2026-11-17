@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch;
+namespace OpenColibri\Starter\ImportFetch;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 

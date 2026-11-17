@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit\Tasks;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit\Tasks;
 
 use Castor\Attribute\AsTask;
-use SyliusStarter\ImportFetch\Tasks\ExistingFetchTasks;
+use OpenColibri\Starter\ImportFetch\Tasks\ExistingFetchTasks;
 use PHPUnit\Framework\TestCase;
 
 final class ExistingFetchTasksTest extends TestCase

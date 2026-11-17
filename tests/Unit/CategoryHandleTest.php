@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function SyliusStarter\ImportFetch\category_handle_from_href;
+use function OpenColibri\Starter\ImportFetch\category_handle_from_href;
 
 final class CategoryHandleTest extends TestCase
 {
