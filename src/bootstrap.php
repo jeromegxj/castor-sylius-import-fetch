@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch;
+namespace OpenColibri\Starter\ImportFetch;
 
 require_once __DIR__ . '/sitemap.php';
 require_once __DIR__ . '/http.php';

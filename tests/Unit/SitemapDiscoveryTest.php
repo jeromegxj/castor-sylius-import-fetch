@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function SyliusStarter\ImportFetch\extract_sitemap_urls_from_robots;
-use function SyliusStarter\ImportFetch\sitemap_folder_fallback_urls;
+use function OpenColibri\Starter\ImportFetch\extract_sitemap_urls_from_robots;
+use function OpenColibri\Starter\ImportFetch\sitemap_folder_fallback_urls;
 
 final class SitemapDiscoveryTest extends TestCase
 {

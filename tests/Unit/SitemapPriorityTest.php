@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function SyliusStarter\ImportFetch\extract_sitemap_urls_from_html;
-use function SyliusStarter\ImportFetch\is_auxiliary_sitemap_url;
-use function SyliusStarter\ImportFetch\is_catalog_sitemap_url;
-use function SyliusStarter\ImportFetch\is_product_sitemap_url;
-use function SyliusStarter\ImportFetch\sort_sitemap_urls_by_priority;
+use function OpenColibri\Starter\ImportFetch\extract_sitemap_urls_from_html;
+use function OpenColibri\Starter\ImportFetch\is_auxiliary_sitemap_url;
+use function OpenColibri\Starter\ImportFetch\is_catalog_sitemap_url;
+use function OpenColibri\Starter\ImportFetch\is_product_sitemap_url;
+use function OpenColibri\Starter\ImportFetch\sort_sitemap_urls_by_priority;
 
 final class SitemapPriorityTest extends TestCase
 {

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch;
+namespace OpenColibri\Starter\ImportFetch;
 
-use SyliusStarter\Import\ImportContext;
+use OpenColibri\Starter\Import\ImportContext;
 
 use function Castor\io;
 use function Castor\run;
-use function SyliusStarter\Import\castor_host_dir;
-use function SyliusStarter\Import\import_log as import_package_log;
-use function SyliusStarter\Import\load_castor_env;
-use function SyliusStarter\Import\resolve_cli_project_slug;
+use function OpenColibri\Starter\Import\castor_host_dir;
+use function OpenColibri\Starter\Import\import_log as import_package_log;
+use function OpenColibri\Starter\Import\load_castor_env;
+use function OpenColibri\Starter\Import\resolve_cli_project_slug;
 
 /**
  * @return array{host: string, user: string, port: int, identityFile: ?string, remoteDir: string}

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit\Import;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit\Import;
 
 use PHPUnit\Framework\TestCase;
 
-use function SyliusStarter\ImportFetch\build_import_var_push_ssh_command;
-use function SyliusStarter\ImportFetch\expand_import_var_push_path;
+use function OpenColibri\Starter\ImportFetch\build_import_var_push_ssh_command;
+use function OpenColibri\Starter\ImportFetch\expand_import_var_push_path;
 
 final class ImportVarPushSshCommandTest extends TestCase
 {

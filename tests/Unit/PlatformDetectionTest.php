@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
-use function SyliusStarter\ImportFetch\detect_import_platform;
+use function OpenColibri\Starter\ImportFetch\detect_import_platform;
 
 final class PlatformDetectionTest extends TestCase
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function SyliusStarter\ImportFetch\import_fetch_request_headers;
+use function OpenColibri\Starter\ImportFetch\import_fetch_request_headers;
 
 final class ImportFetchHttpHeadersTest extends TestCase
 {
@@ -15,7 +15,7 @@ final class ImportFetchHttpHeadersTest extends TestCase
         $headers = import_fetch_request_headers();
 
         static::assertArrayHasKey('User-Agent', $headers);
-        static::assertStringNotContainsString('sylius-starter-import', $headers['User-Agent']);
+        static::assertStringNotContainsString('starter-import', $headers['User-Agent']);
         static::assertStringContainsString('Chrome', $headers['User-Agent']);
     }
 

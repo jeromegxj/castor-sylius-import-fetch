@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tasks;
+namespace OpenColibri\Starter\ImportFetch\Tasks;
 
 use Castor\Api\Attribute\AsApi;
 use Castor\Attribute\AsArgument;
 use Castor\Attribute\AsOption;
 use Castor\Attribute\AsTask;
-use SyliusStarter\Core\App;
-use SyliusStarter\Import\ImportContext;
+use OpenColibri\Starter\Core\App;
+use OpenColibri\Starter\Import\ImportContext;
 
 use function Castor\io;
-use function SyliusStarter\Import\import_log;
-use function SyliusStarter\Import\parse_import_site_input;
-use function SyliusStarter\Import\resolve_cli_project_slug;
-use function SyliusStarter\Import\resolve_import_project;
-use function SyliusStarter\ImportFetch\fetch_import_data;
-use function SyliusStarter\ImportFetch\push_import_var_to_remote;
+use function OpenColibri\Starter\Import\import_log;
+use function OpenColibri\Starter\Import\parse_import_site_input;
+use function OpenColibri\Starter\Import\resolve_cli_project_slug;
+use function OpenColibri\Starter\Import\resolve_import_project;
+use function OpenColibri\Starter\ImportFetch\fetch_import_data;
+use function OpenColibri\Starter\ImportFetch\push_import_var_to_remote;
 
 final class ImportFetchTasks
 {

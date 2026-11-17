@@ -2,33 +2,33 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch;
+namespace OpenColibri\Starter\ImportFetch;
 
-use SyliusStarter\Import\Dto\CollectionExtraction;
+use OpenColibri\Starter\Import\Dto\CollectionExtraction;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
 
-use function SyliusStarter\Import\clean_html_for_ai;
-use function SyliusStarter\Import\create_ai_platform;
-use function SyliusStarter\Import\deserialize_collection_extraction;
-use function SyliusStarter\Import\humanize_slug;
-use function SyliusStarter\Import\import_log;
-use function SyliusStarter\Import\import_url_locale_prefix_pattern;
-use function SyliusStarter\Import\invoke_ai_structured;
-use function SyliusStarter\Import\is_category_url;
-use function SyliusStarter\Import\is_product_url;
-use function SyliusStarter\Import\normalize_label_for_matching;
-use function SyliusStarter\Import\product_dedup_key_from_url;
-use function SyliusStarter\Import\strip_import_url_locale_prefix;
-use function SyliusStarter\Import\title_from_url_slug;
+use function OpenColibri\Starter\Import\clean_html_for_ai;
+use function OpenColibri\Starter\Import\create_ai_platform;
+use function OpenColibri\Starter\Import\deserialize_collection_extraction;
+use function OpenColibri\Starter\Import\humanize_slug;
+use function OpenColibri\Starter\Import\import_log;
+use function OpenColibri\Starter\Import\import_url_locale_prefix_pattern;
+use function OpenColibri\Starter\Import\invoke_ai_structured;
+use function OpenColibri\Starter\Import\is_category_url;
+use function OpenColibri\Starter\Import\is_product_url;
+use function OpenColibri\Starter\Import\normalize_label_for_matching;
+use function OpenColibri\Starter\Import\product_dedup_key_from_url;
+use function OpenColibri\Starter\Import\strip_import_url_locale_prefix;
+use function OpenColibri\Starter\Import\title_from_url_slug;
 use function Castor\context;
 use function Castor\fs;
 use function Castor\io;
 use function Castor\run;
 
-use const SyliusStarter\Import\HTML_MAX_LENGTH;
-use const SyliusStarter\Import\IMPORT_LOCALE_PREFERENCE;
-use const SyliusStarter\Import\IMPORT_PLATFORM_SHOPIFY_THRESHOLD;
+use const OpenColibri\Starter\Import\HTML_MAX_LENGTH;
+use const OpenColibri\Starter\Import\IMPORT_LOCALE_PREFERENCE;
+use const OpenColibri\Starter\Import\IMPORT_PLATFORM_SHOPIFY_THRESHOLD;
 
 /**
  * @param array<string, mixed> $stats

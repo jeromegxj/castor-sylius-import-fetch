@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "SyliusStarter\\ImportFetch\\": "src/"
+            "OpenColibri\\Starter\\ImportFetch\\": "src/"
         },
         "files": [
             "src/bootstrap.php"
@@ -13,7 +13,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "SyliusStarter\\ImportFetch\\Tests\\": "tests/"
+            "OpenColibri\\Starter\\ImportFetch\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -24,8 +24,8 @@
     ],
     "require": {
         "php": ">=8.3",
-        "sylius-starter/core": "^0.1@dev",
-        "sylius-starter/import": "^0.1@dev"
+        "opencolibri/starter-core": "^0.1@dev",
+        "opencolibri/starter-import": "^0.1@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "^13.4.4",
@@ -36,11 +36,11 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/sylius-starter/sylius-starter-core"
+            "url": "https://github.com/opencolibri/starter-core"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/sylius-starter/sylius-starter-import"
+            "url": "https://github.com/opencolibri/starter-import"
         }
     ],
     "minimum-stability": "dev",

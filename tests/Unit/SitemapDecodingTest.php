@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace SyliusStarter\ImportFetch\Tests\Unit;
+namespace OpenColibri\Starter\ImportFetch\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function SyliusStarter\ImportFetch\close_sitemap_reader;
-use function SyliusStarter\ImportFetch\decode_sitemap_content;
-use function SyliusStarter\ImportFetch\extract_sitemap_products_from_reader;
-use function SyliusStarter\ImportFetch\open_sitemap_reader;
+use function OpenColibri\Starter\ImportFetch\close_sitemap_reader;
+use function OpenColibri\Starter\ImportFetch\decode_sitemap_content;
+use function OpenColibri\Starter\ImportFetch\extract_sitemap_products_from_reader;
+use function OpenColibri\Starter\ImportFetch\open_sitemap_reader;
 
 final class SitemapDecodingTest extends TestCase
 {
